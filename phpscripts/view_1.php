@@ -28,10 +28,11 @@
     <table class="table table-hover table-success table-striped table-borderless">
         <thead>
             <tr>
-				<th>Onomateponimo</th>
-                <th>ID_Organismou</th>
-				<th>ID_Ergou</th>
-				<th>Onoma ergou</th>
+                <th>ID_Ergou</th>	
+                <th>Title</th>
+                <th>ID_Ereuniti</th>
+				<th>First_Name</th>
+				<th>Last_Name</th>
             </tr>
         </thead>
 		
@@ -57,12 +58,12 @@
 			
 		   while ($tuple = mysqli_fetch_assoc($res)) {
                 echo "<tr>";
-				
-				if ($tuple['ID_Ereuniti'] != $previous)	{		
-					echo "<td>" . $tuple['Onomateponimo'] . "</td>";
-					echo "<td>" . $tuple['ID_Organismou'] . "</td>";
-                    echo "<td>" . $tuple['ID_Ergou'] . "</td>";
-                    echo "<td>" . $tuple['Onoma ergou'] . "</td>";
+				if ($tuple['ID_Ergou'] != $previous)	{		
+					echo "<td>" . $tuple['ID_Ergou'] . "</td>";
+                    echo "<td>" . $tuple['Title'] . "</td>";
+					echo "<td>" . $tuple['ID_Ereuniti'] . "</td>";
+                    echo "<td>" . $tuple['First_Name'] . "</td>";
+                    echo "<td>" . $tuple['Last_Name'] . "</td>";
 				}
 				else {
 					echo "<td>    </td>";
