@@ -101,13 +101,5 @@ ORDER BY Nea_Synolika_Funds DESC LIMIT 5;
 -- ----------------------------------------------------- 
 
 3.8) Βρίσκω τους ερευνητές που εργάζονται σε 5 ή περισσότερα έργα που δεν έχουν παραδοτέα ως:
-SELECT Ereunitis1.ID_Ereuniti , CONCAT(Ereunitis1.First_Name, ' ', Ereunitis1.Last_Name) AS Onomatepwnimo , COUNT(X.ID_Ergou) AS metritis_ergon 
-FROM 
-( 
-SELECT ID_Ergou FROM ergo_epixorigisi 
-WHERE ID_Ergou NOT IN ( SELECT ID_Ergou FROM paradoteo ) 
-) X 
-INNER JOIN Works_On Y ON X.ID_Ergou = Y.ID_Ergou 
-INNER JOIN Researcher Ereunitis1 ON Y.ID_Ereuniti = Ereunitis1.ID_Ereuniti 
-GROUP BY Ereunitis1.ID_Ereuniti 
-HAVING metritis_ergon >= 5;
+
+SELECT r.ID_Ereuniti, r.first_name, r.last_name, COUNT(*) `metrima` FROM researcher r INNER JOIN works_on w ON r.ID_Ereuniti = w.ID_Ereuniti inner join ergo_epixorigisi p ON w.ID_Ergou = p.ID_Ergou WHERE w.ID_Ereuniti NOT IN (SELECT ID_Ergou FROM ergo_epixorigisi) GROUP BY r.ID_Ereuniti HAVING COUNT(*) > 4 ORDER BY COUNT(*) DESC;

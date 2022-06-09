@@ -263,24 +263,15 @@ DELIMITER ;
 -- View 1: Projects per Researcher
 -- -----------------------------------------------------
 
-CREATE VIEW projects_per_researcher AS
-SELECT Researcher.ID_Ereuniti,
-	   CONCAT(Researcher.First_Name, ' ', Researcher.Last_Name) AS `Full_Name`,
-       Researcher.ID_Organismou AS Org_ID,
-       Ergo_Epixorigisi.ID_Ergou,
-       Ergo_Epixorigisi.Title AS `Project_Name`
-FROM Researcher INNER JOIN Works_On ON Researcher.ID_Ereuniti=Works_On.ID_Ereuniti
-INNER JOIN Ergo_Epixorigisi on Works_On.ID_Ergou=Ergo_Epixorigisi.ID_Ereuniti
-ORDER BY Researcher.ID_Ereuniti;
+CREATE VIEW projects_per_researcher AS 
+SELECT works_on.ID_Ergou, ergo_epixorigisi.Title, works_on.ID_Ereuniti, researcher.First_Name, researcher.Last_Name
+FROM ergo_epixorigisi
+INNER JOIN works_on ON works_on.ID_Ergou = ergo_epixorigisi.ID_Ergou 
+INNER JOIN researcher ON works_on.ID_Ereuniti = researcher.ID_Ereuniti 
+ORDER BY researcher.ID_Ereuniti;
 
 -- -----------------------------------------------------
 -- View 2: Projects per Field
 -- -----------------------------------------------------
-
 CREATE VIEW projects_per_field AS
-SELECT Ergo_Epixorigisi.ID_Ereuniti,
-       Ergo_Epixorigisi.Title AS `Project_Name`,
-       Epistimoniko_Pedio.Name_Science_Field as `Field_Name`
-FROM Ergo_Epixorigisi INNER JOIN Epistimoniko_Pedio_Ergou ON Ergo_Epixorigisi.ID_Ergou=Epistimoniko_Pedio_Ergou.ID_Ergou
-INNER JOIN Epistimoniko_Pedio on Epistimoniko_Pedio_Ergou.Name_Science_Field=Epistimoniko_Pedio.Name_Science_Field
-ORDER BY Epistimoniko_Pedio_Ergou.Name_Science_Field;
+SELECT Ergo_Epixorigisi.ID_Ereuniti, Ergo_Epixorigisi.Title AS `Project_Name`, Ergo_Epixorigisi.ID_Ergou, Epistimoniko_Pedio.Name_Science_Field as `Field_Name` FROM Ergo_Epixorigisi INNER JOIN Epistimoniko_Pedio_Ergou ON Ergo_Epixorigisi.ID_Ergou=Epistimoniko_Pedio_Ergou.ID_Ergou INNER JOIN Epistimoniko_Pedio on Epistimoniko_Pedio_Ergou.Code_anaforas=Epistimoniko_Pedio.Code_anaforas ORDER BY Epistimoniko_Pedio.Code_anaforas;
