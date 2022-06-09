@@ -19,7 +19,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title> Database Analytsis </title>
+    <title> Database Analysis </title>
 
 </head>
 
@@ -29,9 +29,9 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>Researcher name</th>
-				 <th>Researcher surname</th>
-                <th>Count of no deliver projects (>3) </th>
+                <th>first_name</th>
+				 <th>last_name</th>
+                <th>metrima</th>
             </tr>
         </thead>
         <?php
@@ -45,17 +45,7 @@
         $conn = new mysqli($host, $user, $password, $dbname, $port, $socket)
             or die('Could not connect to the database server' . mysqli_connect_error());
 
-
-        $quer = "SELECT Ereunitis1.ID_Ereuniti , CONCAT(Ereunitis1.First_Name, ' ', Ereunitis1.Last_Name) AS Onomatepwnimo , COUNT(X.ID_Ergou) AS metritis_ergon 
-        FROM 
-        ( 
-        SELECT ID_Ergou FROM ergo_epixorigisi 
-        WHERE ID_Ergou NOT IN ( SELECT ID_Ergou FROM paradoteo ) 
-        ) X 
-        INNER JOIN Works_On Y ON X.ID_Ergou = Y.ID_Ergou 
-        INNER JOIN Researcher Ereunitis1 ON Y.ID_Ereuniti = Ereunitis1.ID_Ereuniti 
-        GROUP BY Ereunitis1.ID_Ereuniti 
-        HAVING metritis_ergon >= 5;";
+        $quer = "SELECT r.ID_Ereuniti, r.first_name, r.last_name, COUNT(*) `metrima` FROM researcher r INNER JOIN works_on w ON r.ID_Ereuniti = w.ID_Ereuniti inner join ergo_epixorigisi p ON w.ID_Ergou = p.ID_Ergou WHERE w.ID_Ereuniti NOT IN (SELECT ID_Ergou FROM ergo_epixorigisi) GROUP BY r.ID_Ereuniti HAVING COUNT(*) > 4 ORDER BY COUNT(*) DESC;";
 
         $res = mysqli_query($conn, $quer);
 
@@ -70,8 +60,8 @@
 				echo "<tr>";
 				echo "<td>" . $numup . "</td>";
 				echo "<td>" . $tuple['first_name'] . "</td>";
-				echo "<td>" . $tuple['surname'] . "</td>";
-				echo "<td>" . $tuple['total'] . "</td>";
+				echo "<td>" . $tuple['last_name'] . "</td>";
+				echo "<td>" . $tuple['metrima'] . "</td>";
 				echo "</tr>";							
             }
         }

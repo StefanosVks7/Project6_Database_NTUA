@@ -28,10 +28,10 @@
     <table class="table table-hover table-success table-striped table-borderless">
         <thead>
             <tr>
-				<th>First name</th>
-                <th>Surname</th>
-				<th>Info</th>
-				<th>Project</th>
+				<th>Onomateponimo</th>
+                <th>ID_Organismou</th>
+				<th>ID_Ergou</th>
+				<th>Onoma ergou</th>
             </tr>
         </thead>
 		
@@ -58,19 +58,17 @@
 		   while ($tuple = mysqli_fetch_assoc($res)) {
                 echo "<tr>";
 				
-				if ($tuple['researcher_id'] != $previous)	{		
-					echo "<td>" . $tuple['first_name'] . "</td>";
-					echo "<td>" . $tuple['surname'] . "</td>";
-					echo "<td>" . $tuple['sex']."," . $tuple['age']. "</td>";	
+				if ($tuple['ID_Ereuniti'] != $previous)	{		
+					echo "<td>" . $tuple['Onomateponimo'] . "</td>";
+					echo "<td>" . $tuple['ID_Organismou'] . "</td>";
+                    echo "<td>" . $tuple['ID_Ergou'] . "</td>";
+                    echo "<td>" . $tuple['Onoma ergou'] . "</td>";
 				}
 				else {
 					echo "<td>    </td>";
 					echo "<td>    </td>";
 					echo "<td>    </td>";
 				}
-				echo "<td>" . $tuple['title'] . "</td>";
-
-				$previous = $tuple['researcher_id'];
                 echo "</tr>";
 		   }
         }
