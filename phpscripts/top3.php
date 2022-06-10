@@ -28,9 +28,11 @@
         <thead>
             <tr>
                 <th>#</th>
+                <th>Pedio1</th>
                 <th>Name1</th>
+                <th>Pedio2</th>
                 <th>Name2</th>
-				<th>Count</th>
+				<th>pair_count</th>
             </tr>
         </thead>
         <?php
